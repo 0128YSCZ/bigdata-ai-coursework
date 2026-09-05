@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skill · 概念学习资料</title>
+  <style>
+    :root {
+      --bg: #fafafa;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent: #059669;
+      --border: #e5e7eb;
+      --warn: #92400e;
+      --warn-bg: #fffbeb;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem;
+    }
+    h1 { font-size: 2rem; margin-bottom: 0.25rem; }
+    .subtitle { color: var(--muted); margin-bottom: 1.5rem; font-size: 0.95rem; }
+    .tag {
+      display: inline-block;
+      background: #d1fae5;
+      color: #065f46;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      margin-right: 0.4rem;
+    }
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    h2 { font-size: 1.25rem; margin-top: 0; color: var(--accent); }
+    h3 { font-size: 1.05rem; margin-top: 1.25rem; }
+    ul, ol { padding-left: 1.4rem; }
+    li { margin-bottom: 0.5rem; }
+    .highlight {
+      background: #ecfdf5;
+      border-left: 4px solid var(--accent);
+      padding: 0.8rem 1rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+    }
+    .warning {
+      background: var(--warn-bg);
+      border-left: 4px solid var(--warn);
+      color: var(--warn);
+      padding: 0.8rem 1rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .source-list li { margin-bottom: 0.75rem; }
+    code {
+      background: #f3f4f6;
+      padding: 0.15rem 0.35rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Skill（技能/可复用能力）</h1>
+  <p class="subtitle"><span class="tag">AI 平台</span><span class="tag">核心概念</span> 生成日期：2026-09-05</p>
+
+  <section id="definition">
+    <h2>1. 一句话定义</h2>
+    <p><strong>Skill 是对一类可复用任务的封装，包含明确的输入、执行流程、输出规范和自检标准，使 AI 助手能够在不同场景中稳定地重复完成同类工作。</strong></p>
+    <h3>个人理解</h3>
+    <p>Skill 就像是给 AI 写的一份“岗位说明书”。它告诉 AI：这个任务是什么场景、需要哪些信息、按什么步骤做、输出成什么样、做完后怎么检查。把这类说明写成文件存起来，以后遇到同样的任务，AI 就能直接照做，不用每次都重新解释一遍。本次作业要求创建的“概念学习资料生成 Skill”就是一个典型例子。</p>
+  </section>
+
+  <section id="mechanism">
+    <h2>2. 核心机制与组成</h2>
+    <ul>
+      <li><strong>元数据（Metadata）</strong>：Skill 的名称、描述、作者、标签等，方便检索和调用。</li>
+      <li><strong>适用场景</strong>：说明这个 Skill 解决什么问题、在什么情况下使用。</li>
+      <li><strong>输入定义</strong>：明确调用者需要提供哪些信息，比如概念名称、深度、侧重点。</li>
+      <li><strong>执行流程/生成步骤</strong>：把任务拆成若干步骤，规定先做什么、后做什么。</li>
+      <li><strong>输出结构</strong>：规定最终产物格式，例如 HTML 文件应包含哪些章节。</li>
+      <li><strong>自检清单</strong>：列出验收标准，确保输出质量稳定。</li>
+    </ul>
+    <div class="highlight">
+      <strong>核心思想：</strong>Skill 把“一次性提示词”升级为“可复用模板”。它关注的不是某一次回答，而是让同类任务都能被稳定、规范地完成。
+    </div>
+  </section>
+
+  <section id="scenario">
+    <h2>3. 具体应用场景</h2>
+    <p><strong>场景：本次作业中的“概念学习资料生成 Skill”。</strong></p>
+    <p>老师在作业里要求：创建一个 Skill，并用它来学习 Agent、大模型上下文、Skill 三个概念。这个 Skill 的调用方式如下：</p>
+    <ol>
+      <li>提供一个新概念（如“Transformer”）；</li>
+      <li>Skill 会按照固定流程生成一份 HTML 学习资料；</li>
+      <li>资料包含定义、个人理解、核心机制、应用场景、易混淆边界和可核查来源；</li>
+      <li>生成后对照自检清单检查，人工修改完善。</li>
+    </ol>
+    <p>以后学习其他课程概念时，只需换输入概念名称，就能复用同一套流程，避免每次都从零写提示词。</p>
+  </section>
+
+  <section id="boundary">
+    <h2>4. 易混淆问题与使用边界</h2>
+    <ul>
+      <li><strong>Skill ≠ 单一提示词</strong>：提示词只是一段文本，Skill 是包含场景、输入、流程、输出、自检的完整规范。</li>
+      <li><strong>Skill ≠ Agent</strong>：Skill 是 Agent 可调用的“能力模块”；Agent 是执行者，Skill 是它执行任务的依据之一。</li>
+      <li><strong>边界</strong>：Skill 不能替代人的判断。它负责规范流程，但生成内容仍需人工核查，尤其是资料来源、事实准确性和个人理解部分。</li>
+    </ul>
+    <div class="warning">
+      <strong>注意：</strong>不要把 Skill 写成只针对某一个概念的“死提示词”。好的 Skill 应该像函数一样可参数化，接收不同输入都能稳定输出。
+    </div>
+  </section>
+
+  <section id="sources">
+    <h2>5. 可核查的资料来源</h2>
+    <ol class="source-list">
+      <li>
+        <strong>WorkBuddy 官方文档 — Skill 机制说明。</strong><br>
+        介绍 Skill 的目录结构、调用方式和元数据规范，是本作业的直接依据。<br>
+        <a href="https://www.workbuddy.cn/docs/workbuddy/Overview" target="_blank">https://www.workbuddy.cn/docs/workbuddy/Overview</a>（检索日期：2026-09-05）
+      </li>
+      <li>
+        <strong>Microsoft. "Semantic Kernel: What is a plugin?"</strong><br>
+        微软 Semantic Kernel 文档，讲解 AI 插件/Skill 的设计哲学：把提示词、配置和原生函数封装为可复用单元。<br>
+        <a href="https://learn.microsoft.com/en-us/semantic-kernel/concepts/plugins/" target="_blank">https://learn.microsoft.com/en-us/semantic-kernel/concepts/plugins/</a>（检索日期：2026-09-05）
+      </li>
+      <li>
+        <strong>Schick, T., et al. (2023). "Toolformer: Language Models Can Teach Themselves to Use Tools." <em>NeurIPS</em>.</strong><br>
+        讨论如何让语言模型学会使用工具/能力，是 Skill 自动化执行的学术基础。<br>
+        <a href="https://arxiv.org/abs/2302.04761" target="_blank">https://arxiv.org/abs/2302.04761</a>
+      </li>
+    </ol>
+  </section>
+</body>
+</html>

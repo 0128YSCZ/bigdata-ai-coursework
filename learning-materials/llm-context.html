@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大模型的上下文 · 概念学习资料</title>
+  <style>
+    :root {
+      --bg: #fafafa;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent: #7c3aed;
+      --border: #e5e7eb;
+      --warn: #92400e;
+      --warn-bg: #fffbeb;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem;
+    }
+    h1 { font-size: 2rem; margin-bottom: 0.25rem; }
+    .subtitle { color: var(--muted); margin-bottom: 1.5rem; font-size: 0.95rem; }
+    .tag {
+      display: inline-block;
+      background: #ede9fe;
+      color: #5b21b6;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      margin-right: 0.4rem;
+    }
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    h2 { font-size: 1.25rem; margin-top: 0; color: var(--accent); }
+    h3 { font-size: 1.05rem; margin-top: 1.25rem; }
+    ul, ol { padding-left: 1.4rem; }
+    li { margin-bottom: 0.5rem; }
+    .highlight {
+      background: #f5f3ff;
+      border-left: 4px solid var(--accent);
+      padding: 0.8rem 1rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+    }
+    .warning {
+      background: var(--warn-bg);
+      border-left: 4px solid var(--warn);
+      color: var(--warn);
+      padding: 0.8rem 1rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .source-list li { margin-bottom: 0.75rem; }
+    code {
+      background: #f3f4f6;
+      padding: 0.15rem 0.35rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <h1>大模型的上下文（Context）</h1>
+  <p class="subtitle"><span class="tag">大语言模型</span><span class="tag">核心概念</span> 生成日期：2026-09-05</p>
+
+  <section id="definition">
+    <h2>1. 一句话定义</h2>
+    <p><strong>大模型的上下文是指模型在一次推理过程中能够“看到”的全部输入信息，包括系统提示、用户消息、历史对话以及附带的文档或工具返回结果。</strong></p>
+    <h3>个人理解</h3>
+    <p>上下文就像大模型的“短期记忆”。我问它一个问题时，它不会真的“记住”我昨天说过什么，除非我把昨天的内容也一起放进这次输入里。上下文越长，模型掌握的信息越多，但处理成本也越高，而且它有最大长度限制（上下文窗口）。</p>
+  </section>
+
+  <section id="mechanism">
+    <h2>2. 核心机制与组成</h2>
+    <ul>
+      <li><strong>系统提示（System Prompt）</strong>：给模型设定角色、风格和全局规则，例如“你是一名耐心的人工智能助教”。</li>
+      <li><strong>用户消息（User Messages）</strong>：当前用户输入的问题或指令。</li>
+      <li><strong>助手消息（Assistant Messages）</strong>：模型之前的回复，用于保持多轮对话的连贯性。</li>
+      <li><strong>工具/函数返回（Tool Results）</strong>：Agent 调用搜索引擎、数据库后返回的结果，也会被塞进上下文供模型参考。</li>
+      <li><strong>上下文窗口（Context Window）</strong>：模型一次能处理的最大 token 数，如 4K、32K、128K。超出部分会被截断或压缩。</li>
+    </ul>
+    <div class="highlight">
+      <strong>关键点：</strong>大模型本身没有持久记忆，所有“记忆”都靠每次请求时把历史信息重新放进上下文。上下文管理的好坏，直接决定对话是否连贯、模型是否能正确理解复杂任务。
+    </div>
+  </section>
+
+  <section id="scenario">
+    <h2>3. 具体应用场景</h2>
+    <p><strong>场景：长文档问答。</strong></p>
+    <p>假设我要让大模型帮我总结一本 200 页的 PDF 教材，并回答课后问题。由于整本书可能超过上下文窗口，我需要：</p>
+    <ol>
+      <li>先按章节切分文档；</li>
+      <li>把相关章节和具体问题一起放进上下文；</li>
+      <li>让模型基于这些上下文作答，而不是让它“记住”整本书。</li>
+    </ol>
+    <p>如果上下文管理不好（比如只放了问题没放相关章节），模型就会胡编乱造。</p>
+  </section>
+
+  <section id="boundary">
+    <h2>4. 易混淆问题与使用边界</h2>
+    <ul>
+      <li><strong>上下文 ≠ 长期记忆</strong>：上下文是“一次性输入”，对话结束后模型不会保留。长期记忆需要外部数据库（如向量库）或持久化存储。</li>
+      <li><strong>上下文 ≠ 训练数据</strong>：训练数据是模型在预训练阶段学到的知识，上下文是推理时临时提供的信息。模型不能通过上下文“学会”永久新知识。</li>
+      <li><strong>边界</strong>：上下文有长度限制；信息过多时，模型会“遗忘”开头的指令（称为“中间丢失”或 lost in the middle）。因此重要指令通常放在开头或结尾。</li>
+    </ul>
+    <div class="warning">
+      <strong>注意：</strong>不要把敏感信息（密码、API Key、个人隐私）随意塞进上下文，因为部分服务商会保留或分析输入内容。
+    </div>
+  </section>
+
+  <section id="sources">
+    <h2>5. 可核查的资料来源</h2>
+    <ol class="source-list">
+      <li>
+        <strong>Anthropic. "Contextual retrieval."</strong><br>
+        Anthropic 官方文档，讲解如何为长文档构建上下文以提升检索和问答效果。<br>
+        <a href="https://www.anthropic.com/news/contextual-retrieval" target="_blank">https://www.anthropic.com/news/contextual-retrieval</a>（检索日期：2026-09-05）
+      </li>
+      <li>
+        <strong>OpenAI. "Prompt engineering guide — Context"</strong><br>
+        官方提示工程指南，说明系统消息、用户消息与上下文窗口的关系。<br>
+        <a href="https://platform.openai.com/docs/guides/prompt-engineering" target="_blank">https://platform.openai.com/docs/guides/prompt-engineering</a>（检索日期：2026-09-05）
+      </li>
+      <li>
+        <strong>Liu, N. F., et al. (2023). "Lost in the Middle: How Language Models Use Long Contexts." <em>TACL</em>.</strong><br>
+        经典论文，系统研究了模型在长上下文中的信息使用偏好与局限。<br>
+        <a href="https://arxiv.org/abs/2307.03172" target="_blank">https://arxiv.org/abs/2307.03172</a>
+      </li>
+    </ol>
+  </section>
+</body>
+</html>
