@@ -1,0 +1,42 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv/
+*.egg-info/
+build/
+dist/
+
+# ===== Jupyter Notebook =====
+.ipynb_checkpoints
+*.ipynb_meta
+
+# ===== 大数据文件（超过 50MB 不要入库）=====
+*.zip
+*.tar.gz
+*.csv.gz
+*.parquet
+*.h5
+*.hdf5
+datasets/*
+!datasets/.gitkeep
+
+# ===== IDE / 编辑器 =====
+.idea/
+.vscode/
+*.swp
+*.sow
+
+# ===== 系统文件 =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== 日志与临时文件 =====
+*.log
+tmp/
+.cache/
